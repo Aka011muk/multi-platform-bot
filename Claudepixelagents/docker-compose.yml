@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  telegram-bot-architect:
+    build: .
+    container_name: ai-bot-architect
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GREEN_API_INSTANCE=${GREEN_API_INSTANCE}
+      - GREEN_API_TOKEN=${GREEN_API_TOKEN}
+      - GOOGLE_SHEETS_URL=${GOOGLE_SHEETS_URL}
+      - TRIGGER_API_KEY=${TRIGGER_API_KEY}
+      - TRIGGER_PROJECT_ID=${TRIGGER_PROJECT_ID}
+    volumes:
+      - ./logs:/app/logs
+      - ./generated_bots:/app/generated_bots
+      - ./temp:/tmp/bot_architect
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge
+
+volumes:
+  logs:
+  generated_bots:
+  temp:

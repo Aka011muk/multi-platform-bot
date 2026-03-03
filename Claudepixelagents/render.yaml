@@ -1,0 +1,51 @@
+services:
+  # Тип сервиса
+  type: web
+  
+  # Название сервиса
+  name: multi-platform-bot
+  
+  # Настройки рантайма
+  runtime: python
+  
+  # Регион развертывания
+  region: oregon
+  
+  # Версия Python
+  pythonVersion: 3.11.0
+  
+  # Команда сборки
+  buildCommand: "pip install -r requirements.txt"
+  
+  # Команда запуска
+  startCommand: "python render_webhook.py"
+  
+  # Переменные окружения
+  envVars:
+    - key: PORT
+      value: 10000
+    - key: PYTHON_VERSION
+      value: 3.11.0
+  
+  # Секретные переменные (через UI Render)
+  secretEnvVars:
+    - key: TELEGRAM_BOT_TOKEN
+      description: "Telegram Bot Token"
+    - key: GROQ_API_KEY
+      description: "Groq API Key"
+    - key: WEBHOOK_URL
+      description: "Webhook URL (автоматически)"
+    - key: TELEGRAM_SECRET_TOKEN
+      description: "Telegram Secret Token (опционально)"
+  
+  # Настройки health check
+  healthCheckPath: /health
+  
+  # Автоматический перезапуск
+  autoDeploy: true
+  
+  # Настройки масштабирования (бесплатный план)
+  instanceCount: 1
+  
+  # Тип инстанса (бесплатный)
+  instanceType: free
